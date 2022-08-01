@@ -1,5 +1,5 @@
 const express = require('express');
-
+const port = process.env.PORT || 3001;
 
 const app = express();
 
@@ -55,8 +55,8 @@ app.get('/api/animals',(req,res)=>{
 });
 // the send method(res short for response) to send the string to our client
 
-app.listen(3001, () =>{
-    console.log(`API server now on port 3001!`);
+app.listen(PORT, () =>{
+    console.log(`API server now on port ${PORT}!`);
 });
 
 const { animals } = require('./data/animals.json')
