@@ -1,3 +1,4 @@
+const {animals} = require('./data/animals.json')
 const express = require('express');
 const PORT = process.env.PORT || 3001;
 
@@ -43,6 +44,11 @@ function filterByQuery(query,animalsArray){
     return filteredResults;
 };
 
+function findById(id, animalsArray){
+    const result = animalsArray.filter(animal => animal.id === id)[0];
+    return result; 
+}
+
 // to add a route
 // get requires two arguments, string desc route, second is callback function executed
 app.get('/api/animals',(req,res)=>{
@@ -54,6 +60,17 @@ app.get('/api/animals',(req,res)=>{
     res.json(results)
 });
 // the send method(res short for response) to send the string to our client
+
+app.get('/api/animals/:id', (req,res)=>{
+    const result = findById(req.params.id, animals);
+    if(result){
+        res.json(result);
+    } else {
+        res.send(404);
+    }
+    
+})
+
 
 app.listen(PORT, () =>{
     console.log(`API server now on port ${PORT}!`);
