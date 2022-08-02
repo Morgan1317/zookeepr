@@ -108,6 +108,17 @@
         "hungry"
       ],
       "id": "10"
+    },
+    {
+      "name": "harry",
+      "species": "Turtle",
+      "diet": "carnivore",
+      "personalityTraits": [
+        "zany",
+        "anxious",
+        "loving"
+      ],
+      "id": "11"
     }
   ]
 }

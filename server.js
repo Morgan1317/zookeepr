@@ -13,6 +13,11 @@ app.use(express.urlencoded({extended:true}));
 // parse incoming JSON data
 app.use(express.json());
 
+// so our code knows to use the public folder content that contains the css and js files that go with the html
+// makes the files static resources so front-end code can be accessed without having a specific server enpont created for it
+// this middleware creates virtual path, middlewhere function in this case is express.static
+app.use(express.static('public'))
+
 
 function filterByQuery(query,animalsArray){
     let personalityTraitsArray = [];
@@ -122,8 +127,28 @@ app.get('/api/animals/:id', (req,res)=>{
     
 })
 
+//  the '/' brings us to the root route of the server
+// this get route has one job, to respond with an html page and display in browser.
+// using path to ensure finding correct location for html code
+app.get('/',(req,res)=>{
+  res.sendFile(path.join(__dirname,'./public/index.html'));
+});
+
+app.get('/animals', (req, res) => {
+  res.sendFile(path.join(__dirname, './public/animals.html'));
+});
+
+app.get('/zookeepers',(req,res)=>{
+  res.sendFile(path.join(__dirname, './public/zookeepers.html'));
+});
+
+// wildcard route, incase req is made for route that doesn't exist
+app.get('*',(req,res)=>{
+  res.sendFile(path.join(__dirname, './public/index.html'));
+});
 
 app.listen(PORT, () => {
     console.log(`API server now on port ${PORT}!`);
+    console.log(`Example app listening at http://localhost:${PORT}`)
 });
 
